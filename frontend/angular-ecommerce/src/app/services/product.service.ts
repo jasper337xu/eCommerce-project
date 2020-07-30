@@ -10,7 +10,7 @@ import { Product } from '../model/product';
 export class ProductService {
 
   // url of Spring Boot Rest API
-  private baseUrl = 'http://localhost:8080/api/products';
+  private baseUrl = 'http://localhost:8080/api/products?size=100';
 
   constructor(private httpClient: HttpClient) { }
 
