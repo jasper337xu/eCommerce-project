@@ -12,6 +12,7 @@ export class ProductListComponent implements OnInit {
 
   products: Product[];
   categoryId: number;
+  searchMode: boolean;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute) { }
@@ -21,6 +22,17 @@ export class ProductListComponent implements OnInit {
       this.renderProductsByCategory();
     });
     
+  }
+
+  renderProducts(): void {
+    this.searchMode = this.route.snapshot.paramMap.has('keyword');
+
+    if (this.searchMode) {
+      this.renderProductsByKeyword();
+    }
+    else {
+      this.renderProductsByCategory();
+    }
   }
 
   renderProductsByCategory(): void {
@@ -40,6 +52,10 @@ export class ProductListComponent implements OnInit {
         this.products = data;
       }
     )
+  }
+
+  renderProductsByKeyword(): void {
+    // TODO
   }
 
 }
