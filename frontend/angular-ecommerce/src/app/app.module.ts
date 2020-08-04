@@ -14,11 +14,15 @@ const routes: Routes = [
     component: ProductListComponent,
   },
   {
-    path: 'category/',
+    path: 'category',
     component: ProductListComponent,
   },
   {
     path: 'products',
+    component: ProductListComponent,
+  },
+  {
+    path: 'search/:keyword',
     component: ProductListComponent,
   },
   {
