@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './services/product.service';
 import { Routes, RouterModule } from '@angular/router';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 const routes: Routes = [
   {
@@ -41,7 +42,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     ProductListComponent,
-    ProductCategoryMenuComponent
+    ProductCategoryMenuComponent,
+    SearchBarComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
