@@ -19,7 +19,7 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => {
-      this.renderProductsByCategory();
+      this.renderProducts();
     });
     
   }
@@ -55,7 +55,13 @@ export class ProductListComponent implements OnInit {
   }
 
   renderProductsByKeyword(): void {
-    // TODO
+    const keyword: string = this.route.snapshot.paramMap.get('keyword');
+
+    this.productService.getProductListByKeyword(keyword).subscribe(
+      data => {
+        this.products = data;
+      }
+    )
   }
 
 }
