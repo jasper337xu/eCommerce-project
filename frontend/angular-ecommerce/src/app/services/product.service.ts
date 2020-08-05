@@ -19,9 +19,21 @@ export class ProductService {
 
   getProductListByCategory(categoryId: number): Observable<Product[]> {
 
-    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
+    const backendApiUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
 
-    return this.httpClient.get<GetResponseProducts>(searchUrl).pipe(
+    return this.retrieveProductsFromBackend(backendApiUrl);
+  }
+
+  getProductListByKeyword(keyword: string): Observable<Product[]> {
+
+    const backendApiUrl = `${this.baseUrl}/search/findByNameContaining?name=${keyword}`;
+
+    return this.retrieveProductsFromBackend(backendApiUrl);
+  }
+
+  // Refactor the repetitive code that is used to retrieve products from backend API
+  private retrieveProductsFromBackend(backendApiUrl: string): Observable<Product[]> {
+    return this.httpClient.get<GetResponseProducts>(backendApiUrl).pipe(
       map(response => response._embedded.products)
     );
   }
