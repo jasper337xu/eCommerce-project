@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { NgModule } from '@angular/core';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,10 @@ const routes: Routes = [
   {
     path: 'category',
     component: ProductListComponent,
+  },
+  {
+    path: 'products/:id',
+    component: ProductDetailsComponent,
   },
   {
     path: 'products',
