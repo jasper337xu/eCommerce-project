@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product } from '../model/product';
 import { ProductCategory } from '../model/product-category';
@@ -42,6 +42,11 @@ export class ProductService {
     return this.httpClient.get<GetResponseProductCategory>(this.categoryUrl).pipe(
       map(response => response._embedded.productCategory)
     );
+  }
+
+  getProductDetails(productId: number): Observable<Product> {
+    const backendApiUrl = `${this.baseUrl}/${productId}`;
+    return this.httpClient.get<Product>(backendApiUrl);
   }
 }
 
