@@ -1,5 +1,6 @@
 export class Product {
     // check out backend API http://localhost:8080/api/products
+    id: number;
     sku: string;
     name: string;
     description: string;
