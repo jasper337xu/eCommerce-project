@@ -18,6 +18,10 @@ export class ProductDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.renderProductDetails();
+  }
+
+  renderProductDetails() {
     const productId: number = +this.activatedRoute.snapshot.paramMap.get('id');
     this.productService.getProductDetails(productId).subscribe(
       data => {
