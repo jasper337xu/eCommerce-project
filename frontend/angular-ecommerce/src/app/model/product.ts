@@ -11,3 +11,8 @@ export class Product {
     dateCreated: Date;
     lastUpdated: Date;
 }
+
+export interface ProductSearch {
+    productCategoryId?: number,
+    searchKeyword?: string,
+}
