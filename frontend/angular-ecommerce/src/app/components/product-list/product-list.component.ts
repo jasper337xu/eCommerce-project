@@ -28,9 +28,7 @@ export class ProductListComponent implements OnInit {
     this.searchMode = this.route.snapshot.paramMap.has('keyword');
 
     if (this.searchMode) {
-      /*
       this.renderProductsByKeyword();
-      */
     }
     else {
       this.renderProductsByCategory();
@@ -62,16 +60,21 @@ export class ProductListComponent implements OnInit {
     */
   }
 
-  /*
+  
   renderProductsByKeyword(): void {
     const keyword: string = this.route.snapshot.paramMap.get('keyword');
-
+    this.productService.getWithQuery({searchKeyword: keyword}).subscribe(
+      data => {
+        this.products = data;
+      }
+    )
+    /*
     this.productService.getProductListByKeyword(keyword).subscribe(
       data => {
         this.products = data;
       }
     )
+    */
   }
-  */
 
 }
