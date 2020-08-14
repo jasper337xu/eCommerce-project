@@ -1,7 +1,8 @@
 import { EntityMetadataMap } from '@ngrx/data';
 
 const entityMetadata: EntityMetadataMap = {
-  Product: {}
+  Product: {},
+  ProductCategory: {}
 }
 
 // because the plural of "hero" is not "heros"
