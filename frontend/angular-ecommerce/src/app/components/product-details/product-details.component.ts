@@ -23,11 +23,19 @@ export class ProductDetailsComponent implements OnInit {
 
   renderProductDetails() {
     const productId: number = +this.activatedRoute.snapshot.paramMap.get('id');
+    this.productService.getByKey(productId).subscribe(
+      data => {
+        this.product = data;
+      }
+    )
+    /*
+    const productId: number = +this.activatedRoute.snapshot.paramMap.get('id');
     this.productService.getProductDetails(productId).subscribe(
       data => {
         this.product = data;
       }
     );
+    */
   }
 
 }
