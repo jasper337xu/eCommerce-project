@@ -19,23 +19,23 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => {
-      this.renderProducts();
+      this.retrieveProducts();
     });
     
   }
 
-  renderProducts(): void {
+  retrieveProducts(): void {
     this.searchMode = this.route.snapshot.paramMap.has('keyword');
 
     if (this.searchMode) {
-      this.renderProductsByKeyword();
+      this.retrieveProductsByKeyword();
     }
     else {
-      this.renderProductsByCategory();
+      this.retrieveProductsByCategory();
     }
   }
 
-  renderProductsByCategory(): void {
+  retrieveProductsByCategory(): void {
     // check if the route has id
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
 
@@ -61,7 +61,7 @@ export class ProductListComponent implements OnInit {
   }
 
   
-  renderProductsByKeyword(): void {
+  retrieveProductsByKeyword(): void {
     const keyword: string = this.route.snapshot.paramMap.get('keyword');
     this.productService.getWithQuery({searchKeyword: keyword}).subscribe(
       data => {

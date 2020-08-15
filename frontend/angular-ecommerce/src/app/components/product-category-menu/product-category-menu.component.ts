@@ -14,10 +14,10 @@ export class ProductCategoryMenuComponent implements OnInit {
   constructor(private productCategoryService: ProductCategoryService) { }
 
   ngOnInit(): void {
-    this.listProductCategories();
+    this.retrieveAllProductCategories();
   }
 
-  listProductCategories() {
+  retrieveAllProductCategories() {
     this.productCategoryService.getAll().subscribe(
       data => {
         this.productCategories = data;
