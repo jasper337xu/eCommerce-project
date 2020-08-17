@@ -13,8 +13,10 @@ export class Product {
 }
 
 export interface ProductSearch {
+    // new properties for pagination
     pageNumber?: number,
     pageSize?: number,
+    
     productCategoryId?: number,
     searchKeyword?: string,
 }
