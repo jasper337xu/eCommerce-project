@@ -13,6 +13,8 @@ export class Product {
 }
 
 export interface ProductSearch {
+    pageNumber?: number,
+    pageSize?: number,
     productCategoryId?: number,
     searchKeyword?: string,
 }
