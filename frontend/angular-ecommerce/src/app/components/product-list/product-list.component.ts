@@ -11,8 +11,13 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductListComponent implements OnInit {
 
   products: Product[];
-  categoryId: string;
+  categoryId: number;
+  previousCategoryId: number = 1;
   searchMode: boolean;
+  // properties for pagination
+  pageNumber: number = 1;
+  pageSize: number = 10;
+  totalElements: number = 0;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute) { }
@@ -40,15 +45,29 @@ export class ProductListComponent implements OnInit {
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
 
     if (hasCategoryId) {
-      this.categoryId = this.route.snapshot.paramMap.get('id');
+      this.categoryId = +this.route.snapshot.paramMap.get('id');
     }
     else {
       // set default to 1
-      this.categoryId = '1';
+      this.categoryId = 1;
     }
-    this.productService.getWithQuery({ productCategoryId: this.categoryId}).subscribe(
+
+    // if we have a different category id than previous, then set pageNumber back to 1
+    if (this.previousCategoryId != this.categoryId) {
+      this.pageNumber = 1;
+    }
+    this.previousCategoryId = this.categoryId;
+
+    this.productService.getWithQuery({ 
+      pageNumber: this.pageNumber.toString(),
+      pageSize: this.pageSize.toString(),
+      productCategoryId: this.categoryId.toString()
+    }).subscribe(
       data => {
-        this.products = data;
+        this.products = data['_embedded']['products'];
+        this.pageNumber = data['page']['number'] + 1;
+        this.pageSize = data['page']['size'];
+        this.totalElements = data['page']['totalElements'];
       }
     )
     /*
