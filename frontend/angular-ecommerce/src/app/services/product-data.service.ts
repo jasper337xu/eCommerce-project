@@ -17,22 +17,25 @@ export class ProductDataService extends DefaultDataService<Product> {
   retrieveProducts(productSearch: ProductSearch): Observable<any> {
     let backendApiUrl: string;
 
-    //
-    // TODO: handle retrieving page of products from backend
-    //
-    
     if (productSearch.productCategoryId) {
-      backendApiUrl = `${this.baseUrl}/search/findByCategoryId?id=${productSearch.productCategoryId}`;
+      backendApiUrl = `${this.baseUrl}/search/findByCategoryId?id=${productSearch.productCategoryId}`
+                    + `&page=${productSearch.pageNumber - 1}&size=${productSearch.pageSize}`;
     }
     else if (productSearch.searchKeyword) {
       backendApiUrl = `${this.baseUrl}/search/findByNameContaining?name=${productSearch.searchKeyword}`;
     }
 
+    console.log(`backendApiUrl`, backendApiUrl);
     return this.http.get(backendApiUrl);
   }
 
   //override
   getWithQuery(queryParams: QueryParams): Observable<any> {
+    //
+    //
+    // TODO: should return Observable<Product[]>
+    //
+    //
     const params = {
       pageNumber: queryParams['pageNumber'] ? parseInt(queryParams['pageNumber'].toString()) : 0,
       pageSize: queryParams['pageSize'] ? parseInt(queryParams['pageSize'].toString()) : 0,
