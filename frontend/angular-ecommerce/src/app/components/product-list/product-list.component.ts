@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/model/product';
 import { ActivatedRoute } from '@angular/router';
+import { ProductDataService } from 'src/app/services/product-data.service';
 
 @Component({
   selector: 'app-product-list',
@@ -16,17 +17,17 @@ export class ProductListComponent implements OnInit {
   searchMode: boolean;
   // properties for pagination
   pageNumber: number = 1;
-  pageSize: number = 10;
-  totalElements: number = 0;
+  readonly pageSize: number = 8;
+  totalElements: number;
 
   constructor(private productService: ProductService,
+              private productDataService: ProductDataService,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => {
       this.retrieveProducts();
     });
-    
   }
 
   retrieveProducts(): void {
@@ -64,12 +65,20 @@ export class ProductListComponent implements OnInit {
       productCategoryId: this.categoryId.toString()
     }).subscribe(
       data => {
-        this.products = data['_embedded']['products'];
-        this.pageNumber = data['page']['number'] + 1;
-        this.pageSize = data['page']['size'];
-        this.totalElements = data['page']['totalElements'];
+        this.products = data;
       }
-    )
+    );
+
+    this.productDataService.getPageInfo({
+      pageNumber: this.pageNumber.toString(),
+      pageSize: this.pageSize.toString(),
+      productCategoryId: this.categoryId.toString()
+    }).subscribe(
+      info => {
+        this.pageNumber = info['number'] + 1;
+        this.totalElements = info['totalElements'];
+      }
+    );
     /*
     this.productService.getProductListByCategory(this.categoryId).subscribe(
       data => {
