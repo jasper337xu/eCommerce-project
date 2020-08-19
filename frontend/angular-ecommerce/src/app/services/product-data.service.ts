@@ -18,24 +18,41 @@ export class ProductDataService extends DefaultDataService<Product> {
     let backendApiUrl: string;
 
     if (productSearch.productCategoryId) {
-      backendApiUrl = `${this.baseUrl}/search/findByCategoryId?id=${productSearch.productCategoryId}`;
+      backendApiUrl = `${this.baseUrl}/search/findByCategoryId?id=${productSearch.productCategoryId}`
+                    + `&page=${productSearch.pageNumber - 1}&size=${productSearch.pageSize}`;
     }
     else if (productSearch.searchKeyword) {
       backendApiUrl = `${this.baseUrl}/search/findByNameContaining?name=${productSearch.searchKeyword}`;
     }
 
+    console.log(`backendApiUrl`, backendApiUrl);
     return this.http.get(backendApiUrl);
+  }
+
+  getPageInfo(queryParams: QueryParams): Observable<any> {
+    const params = {
+      pageNumber: queryParams['pageNumber'] ? parseInt(queryParams['pageNumber'].toString()) : 0,
+      pageSize: queryParams['pageSize'] ? parseInt(queryParams['pageSize'].toString()) : 0,
+      productCategoryId: queryParams['productCategoryId'] ? parseInt(queryParams['productCategoryId'].toString()) : 0,
+      //searchKeyword: queryParams['searchKeyword'] ? queryParams['searchKeyword'].toString() : '',
+    };
+
+    return this.retrieveProducts(params).pipe(
+      map(res => res['page'])
+    );
   }
 
   //override
   getWithQuery(queryParams: QueryParams): Observable<Product[]> {
     const params = {
+      pageNumber: queryParams['pageNumber'] ? parseInt(queryParams['pageNumber'].toString()) : 0,
+      pageSize: queryParams['pageSize'] ? parseInt(queryParams['pageSize'].toString()) : 0,
       productCategoryId: queryParams['productCategoryId'] ? parseInt(queryParams['productCategoryId'].toString()) : 0,
       searchKeyword: queryParams['searchKeyword'] ? queryParams['searchKeyword'].toString() : '',
     };
 
     return this.retrieveProducts(params).pipe(
-      map(res => res._embedded.products)
+      map(res => res['_embedded']['products'])
     );
     /*
     const categoryId: number = parseInt(queryParams['productCategoryId'].toString());

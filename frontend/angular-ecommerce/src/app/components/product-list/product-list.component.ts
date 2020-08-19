@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/model/product';
 import { ActivatedRoute } from '@angular/router';
+import { ProductDataService } from 'src/app/services/product-data.service';
 
 @Component({
   selector: 'app-product-list',
@@ -11,17 +12,22 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductListComponent implements OnInit {
 
   products: Product[];
-  categoryId: string;
+  categoryId: number;
+  previousCategoryId: number = 1;
   searchMode: boolean;
+  // properties for pagination
+  pageNumber: number = 1;
+  readonly pageSize: number = 8;
+  totalElements: number;
 
   constructor(private productService: ProductService,
+              private productDataService: ProductDataService,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(() => {
       this.retrieveProducts();
     });
-    
   }
 
   retrieveProducts(): void {
@@ -40,17 +46,39 @@ export class ProductListComponent implements OnInit {
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
 
     if (hasCategoryId) {
-      this.categoryId = this.route.snapshot.paramMap.get('id');
+      this.categoryId = +this.route.snapshot.paramMap.get('id');
     }
     else {
       // set default to 1
-      this.categoryId = '1';
+      this.categoryId = 1;
     }
-    this.productService.getWithQuery({ productCategoryId: this.categoryId}).subscribe(
+
+    // if we have a different category id than previous, then set pageNumber back to 1
+    if (this.previousCategoryId != this.categoryId) {
+      this.pageNumber = 1;
+    }
+    this.previousCategoryId = this.categoryId;
+
+    this.productService.getWithQuery({ 
+      pageNumber: this.pageNumber.toString(),
+      pageSize: this.pageSize.toString(),
+      productCategoryId: this.categoryId.toString()
+    }).subscribe(
       data => {
         this.products = data;
       }
-    )
+    );
+
+    this.productDataService.getPageInfo({
+      pageNumber: this.pageNumber.toString(),
+      pageSize: this.pageSize.toString(),
+      productCategoryId: this.categoryId.toString()
+    }).subscribe(
+      info => {
+        this.pageNumber = info['number'] + 1;
+        this.totalElements = info['totalElements'];
+      }
+    );
     /*
     this.productService.getProductListByCategory(this.categoryId).subscribe(
       data => {
