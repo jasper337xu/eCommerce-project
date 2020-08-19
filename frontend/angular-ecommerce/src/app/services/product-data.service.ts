@@ -29,13 +29,21 @@ export class ProductDataService extends DefaultDataService<Product> {
     return this.http.get(backendApiUrl);
   }
 
+  getPageInfo(queryParams: QueryParams): Observable<any> {
+    const params = {
+      pageNumber: queryParams['pageNumber'] ? parseInt(queryParams['pageNumber'].toString()) : 0,
+      pageSize: queryParams['pageSize'] ? parseInt(queryParams['pageSize'].toString()) : 0,
+      productCategoryId: queryParams['productCategoryId'] ? parseInt(queryParams['productCategoryId'].toString()) : 0,
+      //searchKeyword: queryParams['searchKeyword'] ? queryParams['searchKeyword'].toString() : '',
+    };
+
+    return this.retrieveProducts(params).pipe(
+      map(res => res['page'])
+    );
+  }
+
   //override
-  getWithQuery(queryParams: QueryParams): Observable<any> {
-    //
-    //
-    // TODO: should return Observable<Product[]>
-    //
-    //
+  getWithQuery(queryParams: QueryParams): Observable<Product[]> {
     const params = {
       pageNumber: queryParams['pageNumber'] ? parseInt(queryParams['pageNumber'].toString()) : 0,
       pageSize: queryParams['pageSize'] ? parseInt(queryParams['pageSize'].toString()) : 0,
@@ -43,7 +51,9 @@ export class ProductDataService extends DefaultDataService<Product> {
       searchKeyword: queryParams['searchKeyword'] ? queryParams['searchKeyword'].toString() : '',
     };
 
-    return this.retrieveProducts(params);
+    return this.retrieveProducts(params).pipe(
+      map(res => res['_embedded']['products'])
+    );
     /*
     const categoryId: number = parseInt(queryParams['productCategoryId'].toString());
     const backendApiUrl = `${this.baseUrl}/search/findByCategoryId?id=${categoryId}`;
