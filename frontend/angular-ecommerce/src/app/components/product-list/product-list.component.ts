@@ -13,12 +13,13 @@ export class ProductListComponent implements OnInit {
 
   products: Product[];
   categoryId: number;
-  previousCategoryId: number = 1;
   searchMode: boolean;
   // properties for pagination
   pageNumber: number = 1;
   readonly pageSize: number = 8;
   totalElements: number;
+  previousCategoryId: number = 1;
+  previousKeyword: string = null;
 
   constructor(private productService: ProductService,
               private productDataService: ProductDataService,
@@ -41,6 +42,7 @@ export class ProductListComponent implements OnInit {
     }
   }
 
+
   retrieveProductsByCategory(): void {
     // check if the route has id
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id');
@@ -59,6 +61,7 @@ export class ProductListComponent implements OnInit {
     }
     this.previousCategoryId = this.categoryId;
 
+    // retrieve (a page of) products by category from backend API
     this.productService.getWithQuery({ 
       pageNumber: this.pageNumber.toString(),
       pageSize: this.pageSize.toString(),
@@ -69,6 +72,7 @@ export class ProductListComponent implements OnInit {
       }
     );
 
+    // retrieve pagination info from backend API
     this.productDataService.getPageInfo({
       pageNumber: this.pageNumber.toString(),
       pageSize: this.pageSize.toString(),
@@ -79,6 +83,7 @@ export class ProductListComponent implements OnInit {
         this.totalElements = info['totalElements'];
       }
     );
+
     /*
     this.productService.getProductListByCategory(this.categoryId).subscribe(
       data => {
@@ -91,11 +96,36 @@ export class ProductListComponent implements OnInit {
   
   retrieveProductsByKeyword(): void {
     const keyword: string = this.route.snapshot.paramMap.get('keyword');
-    this.productService.getWithQuery({searchKeyword: keyword}).subscribe(
+
+    // if we have a different keyword than previous, then set pageNumber back to 1
+    if (this.previousKeyword != keyword) {
+      this.pageNumber = 1;
+    }
+    this.previousKeyword = keyword;
+
+    // retrieve (a page of) products by keyword from backend API
+    this.productService.getWithQuery({
+      pageNumber: this.pageNumber.toString(),
+      pageSize: this.pageSize.toString(),
+      searchKeyword: keyword
+    }).subscribe(
       data => {
         this.products = data;
       }
     )
+
+    // retrieve pagination info from backend API
+    this.productDataService.getPageInfo({
+      pageNumber: this.pageNumber.toString(),
+      pageSize: this.pageSize.toString(),
+      searchKeyword: keyword
+    }).subscribe(
+      info => {
+        this.pageNumber = info['number'] + 1;
+        this.totalElements = info['totalElements'];
+      }
+    );
+
     /*
     this.productService.getProductListByKeyword(keyword).subscribe(
       data => {

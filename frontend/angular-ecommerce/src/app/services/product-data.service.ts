@@ -22,7 +22,8 @@ export class ProductDataService extends DefaultDataService<Product> {
                     + `&page=${productSearch.pageNumber - 1}&size=${productSearch.pageSize}`;
     }
     else if (productSearch.searchKeyword) {
-      backendApiUrl = `${this.baseUrl}/search/findByNameContaining?name=${productSearch.searchKeyword}`;
+      backendApiUrl = `${this.baseUrl}/search/findByNameContaining?name=${productSearch.searchKeyword}`
+                    + `&page=${productSearch.pageNumber - 1}&size=${productSearch.pageSize}`;
     }
 
     console.log(`backendApiUrl`, backendApiUrl);
@@ -34,7 +35,7 @@ export class ProductDataService extends DefaultDataService<Product> {
       pageNumber: queryParams['pageNumber'] ? parseInt(queryParams['pageNumber'].toString()) : 0,
       pageSize: queryParams['pageSize'] ? parseInt(queryParams['pageSize'].toString()) : 0,
       productCategoryId: queryParams['productCategoryId'] ? parseInt(queryParams['productCategoryId'].toString()) : 0,
-      //searchKeyword: queryParams['searchKeyword'] ? queryParams['searchKeyword'].toString() : '',
+      searchKeyword: queryParams['searchKeyword'] ? queryParams['searchKeyword'].toString() : '',
     };
 
     return this.retrieveProducts(params).pipe(
@@ -63,6 +64,7 @@ export class ProductDataService extends DefaultDataService<Product> {
     */
   }
 
+  //override
   getById(productId: number): Observable<Product> {
     const backendApiUrl = `${this.baseUrl}/${productId}`;
     return this.http.get<Product>(backendApiUrl);
