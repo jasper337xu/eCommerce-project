@@ -17,7 +17,7 @@ export class ProductListComponent implements OnInit {
   // properties for pagination
   pageNumber: number = 1;
   readonly pageSize: number = 8;
-  totalElements: number;
+  totalElements: number = 0;
   previousCategoryId: number = 1;
   previousKeyword: string = null;
 
@@ -83,16 +83,7 @@ export class ProductListComponent implements OnInit {
         this.totalElements = info['totalElements'];
       }
     );
-
-    /*
-    this.productService.getProductListByCategory(this.categoryId).subscribe(
-      data => {
-        this.products = data;
-      }
-    )
-    */
   }
-
   
   retrieveProductsByKeyword(): void {
     const keyword: string = this.route.snapshot.paramMap.get('keyword');
@@ -125,14 +116,6 @@ export class ProductListComponent implements OnInit {
         this.totalElements = info['totalElements'];
       }
     );
-
-    /*
-    this.productService.getProductListByKeyword(keyword).subscribe(
-      data => {
-        this.products = data;
-      }
-    )
-    */
   }
 
 }
