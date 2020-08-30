@@ -3,6 +3,8 @@ import { ProductService } from 'src/app/services/product.service';
 import { Product } from 'src/app/model/product';
 import { ActivatedRoute } from '@angular/router';
 import { ProductDataService } from 'src/app/services/product-data.service';
+import { CartService } from 'src/app/services/cart.service';
+import { CartItem } from 'src/app/model/cart-item';
 
 @Component({
   selector: 'app-product-list',
@@ -23,6 +25,7 @@ export class ProductListComponent implements OnInit {
 
   constructor(private productService: ProductService,
               private productDataService: ProductDataService,
+              private cartService: CartService,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -119,8 +122,7 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCart(product: Product): void {
-    //
-    //TODO
-    //
+    const cartItem = new CartItem(product);
+    this.cartService.addToCart(cartItem);
   }
 }
