@@ -44,9 +44,12 @@ export class CartService {
       totalPriceValue += tempItem.unitPrice * tempItem.quantity;
       totalQuantityValue += tempItem.quantity;
     }
-    
+
     // publish total values to all subscribers that will receive the new data
     this.totalPrice.next(totalPriceValue);
     this.totalQuantity.next(totalQuantityValue);
+
+    console.log(`totalPrice:`, totalPriceValue);
+    console.log(`totalQuantity:`, totalQuantityValue);
   }
 }
