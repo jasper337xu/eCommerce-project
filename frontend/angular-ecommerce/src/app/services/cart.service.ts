@@ -15,20 +15,15 @@ export class CartService {
 
   addToCart(cartItem: CartItem) {
     // check if we already have the item in our cart
-    let alreadyExistsInCart: boolean;
-    alreadyExistsInCart = this.cartItems.some(tempItem => tempItem.id === cartItem.id);
+    let existingCartItem: CartItem = undefined;
+    existingCartItem = this.cartItems.find(tempItem => tempItem.id === cartItem.id);
 
-    if (alreadyExistsInCart) {
-      // increment the quantity of the item
-      for (let tempItem of this.cartItems) {
-        if (tempItem.id === cartItem.id) {
-          tempItem.quantity++;
-          break;
-        }
-      }
+    if (existingCartItem != undefined) {
+      // the item already exists in the cart, increment the quantity of the item
+      existingCartItem.quantity++;
     }
     else {
-      // add the item to the cartItems
+      // the item does not exist in the cart, add the item to the cart
       this.cartItems.push(cartItem);
     }
 
@@ -44,9 +39,12 @@ export class CartService {
       totalPriceValue += tempItem.unitPrice * tempItem.quantity;
       totalQuantityValue += tempItem.quantity;
     }
-    
+
     // publish total values to all subscribers that will receive the new data
     this.totalPrice.next(totalPriceValue);
     this.totalQuantity.next(totalQuantityValue);
+
+    console.log(`totalPrice:`, totalPriceValue);
+    console.log(`totalQuantity:`, totalQuantityValue);
   }
 }
