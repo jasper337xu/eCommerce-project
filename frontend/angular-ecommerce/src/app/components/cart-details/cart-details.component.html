@@ -5,8 +5,8 @@
                 <table class="table table-bordered">
                     <tr>
                         <th width="20%">Product Image</th>
-                        <th width="50%">Product Detail</th>
-                        <th width="30%"></th>
+                        <th width="40%">Product Detail</th>
+                        <th width="40%"></th>
                     </tr>
                     <tr *ngFor="let item of cartItems">
                         <td>
@@ -33,10 +33,11 @@
                                             <i class="fas fa-minus"></i>
                                         </button>
                                     </div>
-                                    <div class="col-6"></div>
+                                    <div class="col-8"></div>
                                 </div>
                             </div>
-                            <p class="mt-2">Subtotal: {{ item.unitPrice * item.quantity | currency: 'CAD' }}</p>
+                            <button (click)="removeFromCart(item)" class="btn btn-primary btn-sm mt-4">Remove</button>
+                            <p class="mt-3">Subtotal: {{ item.unitPrice * item.quantity | currency: 'CAD' }}</p>
                         </td>
                     </tr>
                     <tr>
