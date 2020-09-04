@@ -47,4 +47,10 @@ export class CartService {
     console.log(`totalPrice:`, totalPriceValue);
     console.log(`totalQuantity:`, totalQuantityValue);
   }
+
+  decrementQuantity(cartItem: CartItem) {
+    //
+    // TODO
+    //
+  }
 }
