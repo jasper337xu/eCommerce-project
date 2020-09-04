@@ -16,7 +16,7 @@ export class CartService {
   addToCart(cartItem: CartItem) {
     // check if we already have the item in our cart
     let existingCartItem: CartItem = undefined;
-    existingCartItem = this.cartItems.find(tempItem => tempItem.id === cartItem.id);
+    existingCartItem = this.cartItems.find(item => item.id === cartItem.id);
 
     if (existingCartItem != undefined) {
       // the item already exists in the cart, increment the quantity of the item
@@ -49,8 +49,23 @@ export class CartService {
   }
 
   decrementQuantity(cartItem: CartItem) {
-    //
-    // TODO
-    //
+    cartItem.quantity--;
+
+    if (cartItem.quantity == 0) {
+      this.removeFromCart(cartItem);
+    }
+    else {
+      this.publishTotals();
+    }
+  }
+
+  removeFromCart(cartItem: CartItem) {
+    const index = this.cartItems.findIndex(item => item.id == cartItem.id);
+
+    if (index > -1) {
+      // item found in the array at the given index, remove it from cart
+      this.cartItems.splice(index, 1);
+      this.publishTotals();
+    }
   }
 }
