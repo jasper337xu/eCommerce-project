@@ -31,14 +31,6 @@ export class ProductDetailsComponent implements OnInit {
         this.product = data;
       }
     )
-    /*
-    const productId: number = +this.activatedRoute.snapshot.paramMap.get('id');
-    this.productService.getProductDetails(productId).subscribe(
-      data => {
-        this.product = data;
-      }
-    );
-    */
   }
 
   addToCart() {

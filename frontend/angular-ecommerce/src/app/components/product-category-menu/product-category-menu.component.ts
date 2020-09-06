@@ -23,14 +23,6 @@ export class ProductCategoryMenuComponent implements OnInit {
         this.productCategories = data;
       }
     )
-    /*
-    this.productService.getProductCategories().subscribe(
-      data => {
-        console.log('Product Categories are ' + JSON.stringify(data));
-        this.productCategories = data;
-      }
-    )
-    */
   }
 
 }
