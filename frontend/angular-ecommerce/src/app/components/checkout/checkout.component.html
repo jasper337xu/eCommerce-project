@@ -2,6 +2,7 @@
     <div class="section-content section-content-p30">
         <div class="container-fluid">
             <form [formGroup]="checkoutFormGroup">
+                <!--Contact Information-->
                 <div formGroupName="customer" class="form-area">
                     <h3>Contact Information</h3>
 
@@ -28,6 +29,50 @@
                         <div class="col-md-7">
                             <div class="input-space">
                                 <input formControlName="email" type="text" placeholder="Email Address">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--Shipping Address-->
+                <div formGroupName="shippingAddress" class="form-area">
+                    <h3>Shipping Address</h3>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Address</label></div>
+                        <div class="col-md-7">
+                            <div class="input-space">
+                                <input formControlName="address" type="text" placeholder="Address">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>City</label></div>
+                        <div class="col-md-7">
+                            <div class="input-space">
+                                <input formControlName="city" type="text" placeholder="City">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Province</label></div>
+                        <div class="col-md-7">
+                            <div class="input-space">
+                                <select formControlName="province">
+                                    <option>TO DO</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Postal Code</label></div>
+                        <div class="col-md-7">
+                            <div class="input-space">
+                                <input formControlName="postalCode" type="text" placeholder="Postal Code">
                             </div>
                         </div>
                     </div>
