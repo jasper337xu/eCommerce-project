@@ -78,6 +78,59 @@
                     </div>
 
                 </div>
+
+                <!--Checkbox that checks if shipping address and billing address are the same-->
+                <div class="input-space">
+                    <label class="au-checkbox">
+                        <input type="checkbox" (change)="copyShippingToBilling($event)">
+                        <span class="au-checkmark"></span> Billing Address same as Shipping Address
+                    </label>
+                </div>
+
+                <!--Billing Address-->
+                <div formGroupName="billingAddress" class="form-area">
+                    <h3>Billing Address</h3>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Address</label></div>
+                        <div class="col-md-7">
+                            <div class="input-space">
+                                <input formControlName="address" type="text" placeholder="Address">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>City</label></div>
+                        <div class="col-md-7">
+                            <div class="input-space">
+                                <input formControlName="city" type="text" placeholder="City">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Province</label></div>
+                        <div class="col-md-7">
+                            <div class="input-space">
+                                <select formControlName="province">
+                                    <option>TO DO</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Postal Code</label></div>
+                        <div class="col-md-7">
+                            <div class="input-space">
+                                <input formControlName="postalCode" type="text" placeholder="Postal Code">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
                 <div class="text-center">
                     <button (click)="onSubmit()" type="submit" class="btn btn-info">Submit Order</button>
                 </div>
