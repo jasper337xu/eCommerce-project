@@ -34,8 +34,8 @@ export class CheckoutComponent implements OnInit {
       creditCard: this.formBuilder.group({
         cardNumber: [''],
         nameOnCard: [''],
-        expireMonth: [''],
-        expireYear: [''],
+        expirationMonth: [''],
+        expirationYear: [''],
         securityCode: ['']
       })
     });
@@ -54,6 +54,9 @@ export class CheckoutComponent implements OnInit {
   onSubmit() {
     console.log(`Handle order submission.`);
     console.log(this.checkoutFormGroup.get('customer').value);
+    console.log(this.checkoutFormGroup.get('shippingAddress').value);
+    console.log(this.checkoutFormGroup.get('billingAddress').value);
+    console.log(this.checkoutFormGroup.get('creditCard').value);
   }
 
 }
