@@ -185,6 +185,14 @@
                     </div>
                 </div>
 
+                <!--Order Summary-->
+                <div class="form-area">
+                    <h3>Order Summary</h3>
+                    <p>Total Quantity: {{ totalQuantity }}</p>
+                    <p>Shipping Fee: FREE</p>
+                    <P>Total Price: {{ totalPrice | currency: 'CAD' }}</P>
+                </div>
+
                 <div class="text-center">
                     <button (click)="onSubmit()" type="submit" class="btn btn-info">Submit Order</button>
                 </div>
