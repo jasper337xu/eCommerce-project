@@ -139,7 +139,7 @@
                         <div class="col-md-2"> <label>Card Number</label></div>
                         <div class="col-md-7">
                             <div class="input-space">
-                                <input formControlName="cardNumber" type="text" placeholder="16-digit number on card">
+                                <input formControlName="cardNumber" type="text" placeholder="16-digit Number on Card">
                             </div>
                         </div>
                     </div>
@@ -148,7 +148,7 @@
                         <div class="col-md-2"> <label>Card Holder</label></div>
                         <div class="col-md-7">
                             <div class="input-space">
-                                <input formControlName="nameOnCard" type="text" placeholder="Name on card">
+                                <input formControlName="nameOnCard" type="text" placeholder="Name on Card">
                             </div>
                         </div>
                     </div>
@@ -158,7 +158,8 @@
                         <div class="col-md-7">
                             <div class="input-space">
                                 <select formControlName="expirationMonth">
-                                    <option>TO DO</option>
+                                    <option value="" disabled selected hidden>Select Expiration Month</option>
+                                    <option *ngFor="let month of expirationMonthList"> {{ month }}</option>
                                 </select>
                             </div>
                         </div>
@@ -169,7 +170,8 @@
                         <div class="col-md-7">
                             <div class="input-space">
                                 <select formControlName="expirationYear">
-                                    <option>TO DO</option>
+                                    <option value="" disabled selected hidden>Select Expiration Year</option>
+                                    <option *ngFor="let year of expirationYearList">{{ year }}</option>
                                 </select>
                             </div>
                         </div>
@@ -179,7 +181,7 @@
                         <div class="col-md-2"> <label>Security Code</label></div>
                         <div class="col-md-7">
                             <div class="input-space">
-                                <input formControlName="securityCode" type="text" placeholder="3-digit code on card">
+                                <input formControlName="securityCode" type="text" placeholder="3-digit Code on Card">
                             </div>
                         </div>
                     </div>
