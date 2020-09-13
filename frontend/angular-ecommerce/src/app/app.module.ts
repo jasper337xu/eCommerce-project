@@ -10,6 +10,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductService } from './services/product.service';
 import { ProductCategoryService } from './services/product-category.service';
 import { CartService } from './services/cart.service';
+import { CheckoutService } from './services/checkout.service';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
@@ -41,6 +42,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProductService,
     ProductCategoryService,
     CartService,
+    CheckoutService,
   ],
   bootstrap: [AppComponent]
 })
