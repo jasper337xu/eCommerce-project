@@ -154,24 +154,24 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-2"> <label>Expiration Month</label></div>
-                        <div class="col-md-7">
-                            <div class="input-space">
-                                <select formControlName="expirationMonth">
-                                    <option value="" disabled selected hidden>Select Expiration Month</option>
-                                    <option *ngFor="let month of expirationMonthList"> {{ month }}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-md-2"> <label>Expiration Year</label></div>
                         <div class="col-md-7">
                             <div class="input-space">
                                 <select formControlName="expirationYear" (change)="handleDependentMonth()">
                                     <option value="" disabled selected hidden>Select Expiration Year</option>
                                     <option *ngFor="let year of expirationYearList">{{ year }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2"> <label>Expiration Month</label></div>
+                        <div class="col-md-7">
+                            <div class="input-space">
+                                <select formControlName="expirationMonth">
+                                    <option value="" disabled selected hidden>Select Expiration Month</option>
+                                    <option *ngFor="let month of expirationMonthList"> {{ month }}</option>
                                 </select>
                             </div>
                         </div>

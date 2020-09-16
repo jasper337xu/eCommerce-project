@@ -48,7 +48,7 @@ export class CheckoutComponent implements OnInit {
       })
     });
 
-    this.checkoutService.getMonths().subscribe(
+    this.checkoutService.getMonths(1).subscribe(
       data => {
         this.expirationMonthList = data;
       }
@@ -94,9 +94,12 @@ export class CheckoutComponent implements OnInit {
       startMonth = 1;
     }
 
-    //
-    // TODO, subscribe to service
-    //
+    // subscribe to checkout service to get the new list of expiration months that are dependent on selected year
+    this.checkoutService.getMonths(startMonth).subscribe(
+      data => {
+        this.expirationMonthList = data;
+      }
+    );
   }
 
 }
