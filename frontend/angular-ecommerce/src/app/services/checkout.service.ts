@@ -8,9 +8,9 @@ export class CheckoutService {
 
   constructor() {}
 
-  getMonths(): Observable<number[]> {
+  getMonths(startMonth: number): Observable<number[]> {
     let months: number[] = [];
-    for (let tempMonth = 1; tempMonth <= 12; tempMonth++) {
+    for (let tempMonth = startMonth; tempMonth <= 12; tempMonth++) {
       months.push(tempMonth);
     }
     return of(months);
