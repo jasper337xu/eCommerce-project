@@ -60,7 +60,12 @@ export class CheckoutComponent implements OnInit {
         this.expirationYearList = data;
       }
     )
+    this.checkoutFormGroup.get('customer').get('firstName').errors.required
   }
+
+  get firstName() { return this.checkoutFormGroup.get('customer.firstName'); }
+  get lastName() { return this.checkoutFormGroup.get('customer.lastName'); }
+  get email() { return this.checkoutFormGroup.get('customer.email'); }
 
   copyShippingToBilling(event) {
     if (event.target.checked) {
